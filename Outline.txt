@@ -30,8 +30,8 @@ Immediate predicates:
      being the percentage chance of detection, further abstracting physical properties e.g. RCS
     - Important point for consideration: the above would likely involve considerable iteration per detectable object;
      This would pin minimum computational complexity relatively high.
-    - Might a database/lookup table provide a more efficient solution whilst retaining the maximum possible
-     physical fidelity? Almost certainly.
+    - Might a database/lookup table provide a more efficient solution whilst retaining physical fidelity? 
+     Almost certainly.
     - At least initially, modelling of ground interference would be relatively simplistic.
 
 Possible Class Hierarchy for Radar:
