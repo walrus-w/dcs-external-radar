@@ -10,7 +10,7 @@ Immediate predicates:
     - This is certainly possible via the mission scripting API
 - It must be possible for DCS to call an external program which is optimised to efficiently run an
  as-realistic-as-possible and then accept return values.
-    At present, this should be possible through the binaries field in config file.
+    This should be possible, initialised as an element of binaries in entry file.
     If it is not, it may be feasible to build a radar simulation which runs within the mission scripting environment
     This latter option may not play nicely with multiplayer and would likely have an unacceptable performance overhead.
 - Currently I am unsure as to the aspects of this related to actually displaying data in the cockpit
