@@ -32,7 +32,7 @@ Immediate predicates:
      This would pin minimum computational complexity relatively high.
     - Might a database/lookup table provide a more efficient solution whilst retaining physical fidelity? 
      Almost certainly.
-    - At least initially, modelling of ground interference would be relatively simplistic.
+    - At least initially, modelling of ground interference would be relatively simplistic, as would modelling or A/G radar modes.
 
 Possible Class Hierarchy for Radar:
 - class Radar
