@@ -1,0 +1,47 @@
+Export all units, their positions and vectors, pass this to compiled and well-optimised program
+This program, radar.dll for argument's sake, processes the contacts according to the parameters of the radar
+Let the source file for this be bars-m.hxx; within which the behaviour of the radar is defined.
+Thus, the raw data returned by DCS is passed via a lua interface to the external radar simulation
+The input will therein be processed according to a model of the radar
+Output from the radar simulation will be passed to an interface with the simulation for display
+In this way, it may be possible to circumvent limitations in the public API, bypassing almost entirely DCS itself.
+Immediate predicates:
+- There must be a way to continuously update an external file with the position/vector of each sim object
+    - This is certainly possible via the mission scripting API
+- It must be possible for DCS to call an external program which is optimised to efficiently run an
+ as-realistic-as-possible and then accept return values.
+    At present, I am unsure if this is possible.
+    If it is not, it may be feasible to build a radar simulation which runs within the mission scripting environment
+    This itself may not play nicely with multiplayer.
+- Currently I am unsure as to the aspects of this related to actually displaying data in the cockpit
+- Assuming these conditions can be met, the most complex aspect of implementation will likely be in understanding the
+ working of a PESA radar system sufficiently well to represent it algorithmically. Clearly, even an 'ideal'
+ implementation would be a rough analogue, given the lack of any but the most general specifications in the public
+ domain.
+- Computational complexity may be an important consideration, given the scan rate of the radar.
+    - Potentially, a workable model would sort input into categories, starting with two:
+     <cannot-be-detected> and <can-be-detected>, defined geometrically by the scan azimuth, elevation and maximum
+     possible detection range
+    - Those in the former category would be discarded immediately, whilst the latter further processed.
+    - Depending upon the granularity of the model, <can-be-detected> might be passed through multiple 'filter'
+     functions, each of which would remove elements in accordance with a given property of the
+     radar beam, e.g. range from emitter.
+    - An alternative model, embodying a similar approach would be to modify a single value for a given contact,
+     being the percentage chance of detection, further abstracting physical properties e.g. RCS
+    - Important point for consideration: the above would likely involve considerable iteration per detectable object;
+     This would pin minimum computational complexity relatively high.
+    - Might a database/lookup table provide a more efficient solution whilst retaining the maximum possible
+     physical fidelity? Almost certainly.
+    - At least initially, modelling of ground interference would be relatively simplistic.
+
+Possible Class Hierarchy for Radar:
+- class Radar
+    - data members:
+    - class Antenna
+    - class Transmitter
+    - class Receiver
+    - class SignalProcessor // this is going to be the complicated part
+    - class LiquidCoolingUnit // not necessary for basic implementation, but this is the component which limits output wattage
+    - float required-voltage // each component of Radar would include a function to return it's power usage
+    - all of the above derived from class Component
+
